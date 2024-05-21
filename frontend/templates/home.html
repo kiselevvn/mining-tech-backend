@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <section>
+        <div class="container" style="padding: 60px 0 0;">
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h1>
+                        Home
+                    </h1>
+                    {% if user.is_authenticated %}
+                        <p>You are authorized ({{ user.username }})</p>
+                    {% else %}
+                        <p>You are not authorized</p>
+                    {% endif %}
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="card  mt-2">
+                        <div class="card-body">
+                            <h5 class="card-title">Django Admin</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="/admin/" class="btn btn-primary">Go</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="card  mt-2">
+                        <div class="card-body">
+                            <h5 class="card-title">API Documents</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="{% url 'schema-swagger-ui' %}" class="btn btn-primary">Go</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
