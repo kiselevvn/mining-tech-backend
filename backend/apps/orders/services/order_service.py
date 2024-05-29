@@ -14,6 +14,7 @@ class OrderService():
     @classmethod
     def create(cls, validated_data, user):
         instance = cls.create_instance(validated_data, user)
+        return instance
 
     @classmethod
     def check_status_orders(cls, orders):
@@ -32,11 +33,9 @@ class OrderService():
             invoice  = cls.cc_sdk.create_invoice(
                 invoice_data = data
             )
-            print(invoice)
             order.invoice = invoice
             order.status = order.CREATED
             order.save()
-        # elif order.status == Order
 
 
     @classmethod
@@ -45,9 +44,10 @@ class OrderService():
             order = Order(user=user)
             order.save()
             for item in validated_data.get("items"):
+                print(item)
                 order_item = OrderItem(
                     order=order,
-                    product=item.get("product"),
+                    product_id=item.get("product")["id"],
                     count=item.get("count"),
                 )
                 order_item.save()
