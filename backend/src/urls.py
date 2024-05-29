@@ -23,7 +23,7 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
-    url(r"^auth/", include("djoser.urls")),
+    # url(r"^auth/", include("djoser.urls")),
     url(r"^auth/", include("djoser.urls.jwt")),
     url(
         r"^swagger(?P<format>\.json|\.yaml)$",

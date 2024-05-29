@@ -63,14 +63,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = [
         "email",
-        "is_staff",
-        "is_active",
     ]
 
     class Meta:
         swappable = "AUTH_USER_MODEL"
-        verbose_name = _("user")
-        verbose_name_plural = _("users")
+        verbose_name = _("Пользователь")
+        verbose_name_plural = _("1. Пользователи")
 
     def clean(self):
         super().clean()

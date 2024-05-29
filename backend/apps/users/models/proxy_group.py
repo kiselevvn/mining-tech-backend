@@ -6,4 +6,4 @@ class ProxyGroup(Group):
     class Meta:
         proxy = True
         verbose_name = _("Группа")
-        verbose_name_plural = _("Группы")
+        verbose_name_plural = _("2. Группы")

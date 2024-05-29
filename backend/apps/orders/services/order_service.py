@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.db import transaction
 
+from backend.apps.common.services import CryptoCloudSDK
 from backend.apps.orders.models import Order, OrderItem
 
 
@@ -7,8 +9,38 @@ class OrderService():
     """
     """
 
+    cc_sdk = CryptoCloudSDK(api_key=settings.CRYPTO_CLOUD_API_KEY)
+
     @classmethod
     def create(cls, validated_data, user):
+        instance = cls.create_instance(validated_data, user)
+
+    @classmethod
+    def check_status_orders(cls, orders):
+        for o in orders:
+            cls.check_status_order(o)
+
+    @classmethod
+    def check_status_order(cls, order):
+        if order.status == order.NEW:
+            data = {
+                "shop_id": settings.CRYPTO_CLOUD_SHOP_ID,
+                "currency": "RUB",
+                "amount": order.price,
+                "order_id": order.pk,
+            }
+            invoice  = cls.cc_sdk.create_invoice(
+                invoice_data = data
+            )
+            print(invoice)
+            order.invoice = invoice
+            order.status = order.CREATED
+            order.save()
+        # elif order.status == Order
+
+
+    @classmethod
+    def create_instance(cls, validated_data, user):
         with transaction.atomic():
             order = Order(user=user)
             order.save()
@@ -21,7 +53,6 @@ class OrderService():
                 order_item.save()
 
         return order
-
 
     # @classmethod
     # def cancel(cls, id_product):

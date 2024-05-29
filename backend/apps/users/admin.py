@@ -6,6 +6,12 @@ from django.utils.translation import gettext_lazy as _
 
 from .models import ProxyGroup, User
 
+admin.site.unregister(BaseGroup)
+
+@admin.register(ProxyGroup)
+class ProxyGroupAdmin(admin.ModelAdmin):
+    pass
+
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):

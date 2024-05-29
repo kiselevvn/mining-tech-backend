@@ -17,9 +17,9 @@ DATE_INPUT_FORMATS = [
 
 REST_FRAMEWORK = {
     # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAdminUser",),
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ),
+    # "DEFAULT_AUTHENTICATION_CLASSES": (
+    #     "rest_framework_simplejwt.authentication.JWTAuthentication",
+    # ),
     "DEFAULT_RENDERER_CLASSES": (
         "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
         "djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer",
@@ -45,8 +45,8 @@ JWT_ALGORITHM = env("JWT_ALGORITHM", default="HS256")
 
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT",),
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=20),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60*12),
+    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=60*13),
     "JWT_AUTH_HEADER_PREFIX": "JWT",
     # "ROTATE_REFRESH_TOKENS": True,
     # "BLACKLIST_AFTER_ROTATION": True,

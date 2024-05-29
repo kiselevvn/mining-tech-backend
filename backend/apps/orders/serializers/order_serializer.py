@@ -9,8 +9,8 @@ class OrderItemSerializer(serializers.ModelSerializer):
     Картинка товара
     """
 
-    product_id = serializers.CharField(source="product.id")
-    product_name = serializers.CharField(source="product.name")
+    product_id = serializers.CharField(source="product.id", required=False)
+    product_name = serializers.CharField(source="product.name", required=False)
     category_name = serializers.CharField(source="product.category.name", required=False)
 
 
@@ -42,6 +42,7 @@ class OrderSerializer(serializers.ModelSerializer):
             "date_created",
             "price",
             "items",
+            "invoice"
         ]
 
     def get_price(self, instance):

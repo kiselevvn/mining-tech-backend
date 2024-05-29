@@ -12,24 +12,24 @@ class Order(models.Model):
         "users.User",
         verbose_name=_("Пользователь"),
         on_delete=models.CASCADE,
-        related_name="cart",
+        related_name="orders",
     )
     comment = models.TextField(
         verbose_name=_("Описание"), blank=True, null=True
     )
+    invoice = models.JSONField(_("Счет"), default=dict())
 
     NEW = 1
-    PAID = 2
-    CANCELED = 3
-    # ON_RECEIPT = 4
-    # CLOSE = 5
+    CREATED = 2
+    CANCELED = 4
+    PAID = 10
 
     STATUS = (
         (NEW, "Новый"),
+        (CREATED, "Создан"),
         (PAID, "Оплачен"),
         (CANCELED, "Отменён"),
         # (ON_RECEIPT, "При получении"),
-        # (CLOSE, "Закрыт"),
     )
     status = models.IntegerField(
         _("Статус заказа"),

@@ -34,6 +34,12 @@ class CurrencyMining(models.Model):
     """
     """
 
+    value =  models.DecimalField(
+        verbose_name=_("Значение"),
+        max_digits=10,
+        decimal_places=2,
+        blank=True, null=True,
+    )
     name = models.CharField(_("Наименование"), max_length=50)
 
     class Meta:
@@ -77,3 +83,38 @@ class Power(models.Model):
 
     def __str__(self):
         return f"{str(self.value)} W"
+
+
+class Contact(models.Model):
+    """
+    """
+
+    TYPES = (
+        ("phone", "Телефон"),
+        ("email", "Электронный адрес"),
+        ("vk", "Вконтакте"),
+        ("tg", "Телеграм"),
+        ("link", "Ссылка"),
+    )
+    value = models.TextField(_("Значение"))
+    type = models.CharField(_("Вид"), choices=TYPES, max_length=50)
+
+    class Meta:
+        verbose_name = _("Хешрейт")
+        verbose_name_plural = _("Хешрейт")
+
+
+    # @classmethod()
+    # def get_contacts(cls):
+    #     contacts = []
+
+    #     for type in cls.TYPES:
+    #         obj, created = cls.objects.get_or_create(
+    #             type=type,
+    #             defaults={"value": cls.value},
+    #         )
+
+
+
+    def __str__(self):
+        return f"{str(self.value)} {self.type}"

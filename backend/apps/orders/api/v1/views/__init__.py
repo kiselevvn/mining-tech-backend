@@ -1,3 +1,3 @@
-from .order_view import OrderCreateAPIView, OrderListAPIView
+from .order_view import OrderCreateAPIView, OrderListAPIView, PostbackView
 
-__all__ = ["OrderCreateAPIView","OrderListAPIView",]
+__all__ = ["OrderCreateAPIView","OrderListAPIView","PostbackView",]

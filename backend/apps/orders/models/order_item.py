@@ -18,7 +18,8 @@ class OrderItem(models.Model):
     product = models.ForeignKey(
         "products.Product",
         verbose_name=_("Товар"),
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name="itemns",
     )
     count = models.IntegerField(_("Количество"))
 
