@@ -42,6 +42,7 @@ class OrderCreateAPIView(CreateAPIView):
     """
     """
 
+    authentication_classes = [JWTAuthentication,]
     queryset = OrderSelector.get_list()
     serializer_class = OrderSerializer
 
