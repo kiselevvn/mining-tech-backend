@@ -32,13 +32,14 @@ class OrderSerializer(serializers.ModelSerializer):
 
     items = OrderItemSerializer(many=True)
     price = serializers.SerializerMethodField()
-    status = serializers.CharField(read_only=True, source="get_status_display")
+    status_name = serializers.CharField(read_only=True, source="get_status_display")
 
     class Meta:
         model = models.Order
         fields = [
             "id",
             "status",
+            "status_name",
             "date_created",
             "price",
             "items",
