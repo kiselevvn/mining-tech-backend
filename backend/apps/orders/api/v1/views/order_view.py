@@ -33,7 +33,7 @@ class OrderListAPIView(ListAPIView):
 
     def get_queryset(self):
         qs = OrderSelector.get_list().filter(user=self.request.user)
-        print(qs)
+        # print(qs)
         OrderService.check_status_orders(qs)
         return qs
 

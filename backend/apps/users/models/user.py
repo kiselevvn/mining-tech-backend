@@ -31,7 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             "unique": _("A user with that username already exists."),
         },
     )
-    phone = models.CharField(_("Номер телефона"), max_length=30, blank=True)
+    phone = models.CharField(_("Номер телефона"), max_length=30, null=True, blank=True)
     email = models.EmailField(_("Адрес электронной почты"), blank=True)
 
     first_name = models.CharField(_("Имя"), max_length=30, blank=True)

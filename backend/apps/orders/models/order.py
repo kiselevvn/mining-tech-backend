@@ -18,6 +18,7 @@ class Order(models.Model):
         verbose_name=_("Описание"), blank=True, null=True
     )
     invoice = models.JSONField(_("Счет"), default=dict())
+    address = models.ForeignKey("users.Address", verbose_name=_("Адрес"), on_delete=models.PROTECT, blank=True, null=True)
 
     NEW = 1
     CREATED = 2
@@ -36,7 +37,7 @@ class Order(models.Model):
         choices=STATUS,
         default=NEW,
     )
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(verbose_name=_("Дата создания"),auto_now_add=True)
 
     @property
     def price(self):

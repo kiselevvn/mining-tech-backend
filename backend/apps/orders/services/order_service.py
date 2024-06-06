@@ -30,7 +30,6 @@ class OrderService():
         else:
             pass
 
-
     @classmethod
     def _check_status_invoice_order(cls, order):
         status  = cls.cc_sdk.get_invoice_info(
@@ -77,10 +76,28 @@ class OrderService():
 
         return order
 
+    @classmethod
+    def create_instance(cls, validated_data, user):
+        with transaction.atomic():
+
+            order = Order(
+                user=user,
+                address=validated_data.get("address")
+            )
+            order.save()
+            for item in validated_data.get("items"):
+                # print(item)
+                order_item = OrderItem(
+                    order=order,
+                    product_id=item.get("product")["id"],
+                    count=item.get("count"),
+                )
+                order_item.save()
+        return order
+
     # @classmethod
     # def cancel(cls, id_product):
     #     return True
-
 
     # @classmethod
     # def cancel(cls, id_product):

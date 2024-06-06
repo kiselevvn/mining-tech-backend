@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group as BaseGroup
 from django.utils.translation import gettext_lazy as _
 
-from .models import ProxyGroup, User
+from .models import Address, ProxyGroup, User
 
 admin.site.unregister(BaseGroup)
 
@@ -13,8 +13,14 @@ class ProxyGroupAdmin(admin.ModelAdmin):
     pass
 
 
+class AddressInlineAdmin(admin.TabularInline):
+    model = Address
+    extra = 0
+
+
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
+    inlines = [AddressInlineAdmin,]
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (
@@ -26,16 +32,6 @@ class UserAdmin(BaseUserAdmin):
                     "second_name",
                     "email",
                 )
-            },
-        ),
-        (
-            _("Permissions Special"),
-            {
-                "fields": (
-                    "is_examination_templates_manager",
-                    "is_employee",
-                    "is_sportsman",
-                ),
             },
         ),
         (

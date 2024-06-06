@@ -23,7 +23,7 @@ class ProductSerializer(ModelSerializer):
     Товар
     """
 
-    # pictures = ProductPictureSerializer(many=True, read_only=True)
+    pictures = ProductPictureSerializer(many=True, read_only=True)
 
     # category_id = CharField(source="category.id", required=False, write_only=True)
     category = CharField(source="category.name", required=False, read_only=True)
@@ -56,7 +56,7 @@ class ProductSerializer(ModelSerializer):
 
             "is_available",
             "is_pre_order",
-            # "pictures",
+            "pictures",
             "main_picture"
         ]
 
