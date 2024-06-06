@@ -1,0 +1,71 @@
+@startuml
+
+    class "Explanation of the symbols used" as DESCRIPTION #FFF {
+    - AutoField (identifiers)
+    ..
+    + Regular field (anything)
+    ..
+    # ForeignKey (ManyToMany)
+    ..
+    ~ ForeignKey (OneToOne, OneToMany)
+    --
+}
+
+
+class "products.Category <2. Товары>" as products.Category #e7f4d6 {
+    Категория товара
+    --
+    - id (AutoField) -
+    + name (CharField) -
+    + is_published (BooleanField) -
+    + is_main (BooleanField) -
+    + order (IntegerField) -
+    --
+}
+
+
+class "products.Picture <2. Товары>" as products.Picture #e7f4d6 {
+    Изображение товара
+    --
+    - id (AutoField) -
+    ~ product (ForeignKey) -
+    + image (ImageField) -
+    + is_published (BooleanField) -
+    + order (PositiveIntegerField) -
+    + is_main (BooleanField) -
+    --
+}
+products.Picture *-left- products.Product
+
+
+class "products.Product <2. Товары>" as products.Product #e7f4d6 {
+    Товар
+    --
+    - id (AutoField) -
+    + name (CharField) -
+    + price (DecimalField) -
+    + short_description (TextField) -
+    + description (TextField) -
+    ~ category (ForeignKey) -
+    ~ brand (ForeignKey) -
+    ~ algorithm (ForeignKey) -
+    ~ currency_mining (ForeignKey) -
+    ~ hashrate (ForeignKey) -
+    ~ power (ForeignKey) -
+    + is_published (BooleanField) -
+    + is_available (BooleanField) -
+    + is_pre_order (BooleanField) -
+    + count (IntegerField) -
+    + date_updated (DateTimeField) -
+    + date_created (DateTimeField) -
+    --
+}
+products.Product *-left- products.Category
+products.Product *-- common.Brand
+products.Product *-- common.Algorithm
+products.Product *-- common.CurrencyMining
+products.Product *-- common.Hashrate
+products.Product *-- common.Power
+
+
+@enduml

@@ -1,0 +1,51 @@
+@startuml
+
+    class "Explanation of the symbols used" as DESCRIPTION #FFF {
+    - AutoField (identifiers)
+    ..
+    + Regular field (anything)
+    ..
+    # ForeignKey (ManyToMany)
+    ..
+    ~ ForeignKey (OneToOne, OneToMany)
+    --
+}
+
+class "orders.Order <3. Заказы>" as orders.Order #def4d6 {
+    Заказ
+    --
+    - id (AutoField) -
+    ~ user (ForeignKey) -
+    + comment (TextField) -
+    + invoice (JSONField) -
+    ~ address (ForeignKey) -
+    + status (IntegerField) -
+    + date_created (DateTimeField) -
+    --
+}
+orders.Order *-right- users.User
+orders.Order *-right- users.Address
+orders.Order .-right- status
+
+
+class "orders.OrderItem <3. Заказы>" as orders.OrderItem #def4d6 {
+    Позиция заказа
+    --
+    - id (AutoField) -
+    ~ order (ForeignKey) -
+    ~ product (ForeignKey) -
+    + count (IntegerField) -
+    --
+}
+orders.OrderItem *-- orders.Order
+orders.OrderItem *-- products.Product
+
+
+enum "status <choices>" as status #EEE{
+    + 1 - (1, 'Новый')
+    + 2 - (2, 'Создан')
+    + 10 - (10, 'Оплачен')
+    + 4 - (4, 'Отменён')
+}
+
+@enduml

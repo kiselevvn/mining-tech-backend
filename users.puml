@@ -1,0 +1,68 @@
+@startuml
+
+    class "Explanation of the symbols used" as DESCRIPTION #FFF {
+    - AutoField (identifiers)
+    ..
+    + Regular field (anything)
+    ..
+    # ForeignKey (ManyToMany)
+    ..
+    ~ ForeignKey (OneToOne, OneToMany)
+    --
+}
+
+
+class "users.Address <1. Пользователи>" as users.Address #d6def4 {
+    Адрес
+    --
+    - id (AutoField) -
+    ~ user (ForeignKey) -
+    + value (TextField) -
+    --
+}
+users.Address *-- users.User
+
+
+class "users.ProxyGroup <1. Пользователи>" as users.ProxyGroup #d6def4 {
+    Группа
+    --
+    - id (AutoField) -
+    + name (CharField) -
+    # permissions (ManyToManyField) -
+    --
+}
+users.ProxyGroup *--* auth.Permission
+
+
+class "users.User <1. Пользователи>" as users.User #d6def4 {
+    Пользователь
+    --
+    - id (AutoField) -
+    + password (CharField) -
+    + last_login (DateTimeField) -
+    + is_superuser (BooleanField) - Указывает, что пользователь имеет все права без
+явного их назначения.
+    + username (CharField) - Обязательное поле. Не более 150 символов. Только
+буквы, цифры и символы @/./+/-/_.
+    + phone (CharField) -
+    + email (EmailField) -
+    + first_name (CharField) -
+    + last_name (CharField) -
+    + second_name (CharField) -
+    + gender (IntegerField) -
+    + is_staff (BooleanField) - Имеет допуск к django-admin
+    + birthday (DateField) -
+    + is_active (BooleanField) - Является активныи
+    + date_joined (DateTimeField) -
+    + settings (JSONField) -
+    # groups (ManyToManyField) - Группы, к которым принадлежит данный пользователь.
+Пользователь получит все права, указанные в каждой из его/её групп.
+    # user_permissions (ManyToManyField) - Индивидуальные права данного
+пользователя.
+    --
+}
+users.User *-left-* auth.Group
+users.User *-left-* auth.Permission
+
+
+@enduml

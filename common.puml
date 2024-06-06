@@ -1,0 +1,71 @@
+@startuml
+
+    class "Explanation of the symbols used" as DESCRIPTION #FFF {
+    - AutoField (identifiers)
+    ..
+    + Regular field (anything)
+    ..
+    # ForeignKey (ManyToMany)
+    ..
+    ~ ForeignKey (OneToOne, OneToMany)
+    --
+}
+
+
+class "common.Brand <4. Справочники>" as common.Brand #d6d7f4 {
+    Производитель
+    --
+    - id (AutoField) -
+    + name (CharField) -
+    --
+}
+
+
+class "common.Algorithm <4. Справочники>" as common.Algorithm #d6d7f4 {
+    Алгоритм шифрования
+    --
+    - id (AutoField) -
+    + name (CharField) -
+    --
+}
+
+
+class "common.CurrencyMining <4. Справочники>" as common.CurrencyMining #d6d7f4 {
+    Валюта
+    --
+    - id (AutoField) -
+    + value (DecimalField) -
+    + name (CharField) -
+    --
+}
+
+
+class "common.Hashrate <4. Справочники>" as common.Hashrate #d6d7f4 {
+    Хешрейт
+    --
+    - id (AutoField) -
+    + value (IntegerField) -
+    + type (CharField) -
+    --
+}
+
+
+class "common.Power <4. Справочники>" as common.Power #d6d7f4 {
+    Потребление энергии
+    --
+    - id (AutoField) -
+    + value (IntegerField) -
+    --
+}
+
+
+class "common.Contact <4. Справочники>" as common.Contact #d6d7f4 {
+    Контакты
+    --
+    - id (AutoField) -
+    + value (TextField) -
+    + type (CharField) -
+    --
+}
+
+@enduml
