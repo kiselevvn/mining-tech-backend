@@ -43,7 +43,8 @@ class OrderSerializer(serializers.ModelSerializer):
             "date_created",
             "price",
             "items",
-            "invoice"
+            "invoice",
+            "address",
         ]
 
     def get_price(self, instance):
