@@ -18,7 +18,13 @@ class ProductFilter(django_filters.FilterSet):
     price = django_filters.NumberFilter()
     price__gt = django_filters.NumberFilter(field_name='price', lookup_expr='gt')
     price__lt = django_filters.NumberFilter(field_name='price', lookup_expr='lt')
-    algorithm = django_filters.MultipleChoiceFilter()
+
+    brand = django_filters.CharFilter(method="split_list_field")
+    algorithm = django_filters.CharFilter(method="split_list_field")
+    currency_mining = django_filters.CharFilter(method="split_list_field")
+    hashrate = django_filters.CharFilter(method="split_list_field")
+    power = django_filters.CharFilter(method="split_list_field")
+    category = django_filters.CharFilter(method="split_list_field")
 
     class Meta:
         model = Product
@@ -37,6 +43,11 @@ class ProductFilter(django_filters.FilterSet):
             # 'manufacturer'
             ]
 
+    def split_list_field(self, queryset, field_name, value):
+        filter_data = {
+            f"{field_name}__in": [int(i) for i in value.split("-")[:-1]]
+        }
+        return queryset.filter(**filter_data)
 
 class ProductListAPIView(ListAPIView):
     """
